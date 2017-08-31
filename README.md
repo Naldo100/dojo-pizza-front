@@ -1,11 +1,13 @@
 # dojo-pizza-front
 
-Dojo para solução do problema de pizza, feito em angular + materializecss
+Dojo para solução do problema de pizza (Frontend)
 
 # Tecnologia
 
  - Angularjs 1
  - Materializecss(MD)
+ - bower
+ - npm
 
 # Instalação
 
