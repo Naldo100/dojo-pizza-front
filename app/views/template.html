@@ -1,0 +1,112 @@
+<div class="container" ng-controller="PizzaController as Pizza">
+    <div class="row">
+        <h1>Dojo/DataInfo(MRE)
+            <a href="#info"
+               title="Clique aqui para visualização as informações sobre o dojo"
+               ng-click="Pizza.info==false?Pizza.info=true:Pizza.info=false">
+                <i class="medium material-icons">help</i>
+            </a></h1>
+    </div>
+    <div class="row">
+        <div class="col s12" ng-show="Pizza.info">
+            <p>Em algumas empresas de desenvolvimento de software é comum, quando o prazo de entrega de uma aplicação está próximo,
+                a equipe passar algumas noites trabalhando. E como todo desenvolvedor também precisa se alimentar, eles sempre pedem
+                pizza nessas ocasiões. Só que sempre é uma briga para conseguir escolher os sabores das pizza de sabores que todos gostam.</p>
+            <p>Um dos membros da equipe, incomodado com as intermináveis discussões sobre o sabor a ser escolhido, resolveu desenvolver
+                um programa para facilitar essa escolha.</p>
+            <p>Para cada sabor de pizza disponível, cada um deve indicar uma nota para ele (nota 1, se a pessoa detesta o sabor e nota
+                5 se a pessoa adora o sabor). Depois de processar esses dados, cada pessoa vai saber quais as pessoas que tem o gosto
+                mais parecido que o seu (e que provavelmente irá dividir uma pizza com você).</p>
+            <p>Por exemplo, para os dados a seguir, o Luca gostaria de saber quem ele deve convidar para dividir uma pizza com ele:</p>
+            <ul class="list-item">
+                <li>Renato = { Marguerita : 4, Quatro queijos : 5, Escarola : 4, Portuguesa : 5, Frango+Catupiry : 4, Napolitana : 3 }</li>
+                <li>Marcelo = { Marguerita : 2, Quatro queijos : 2, Escarola : 1, Portuguesa : 3, Frango+Catupiry : 5, Napolitana : 2 }</li>
+                <li>Washington = { Marguerita : 1, Quatro queijos : 1, Escarola : 2, Portuguesa : 3, Frango+Catupiry : 4, Napolitana : 3 }</li>
+                <li>Tino = { Marguerita : 1, Quatro queijos : 5, Escarola : 1, Portuguesa : 4, Frango+Catupiry : 3, Napolitana : 2 }</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row">
+        <form name="formItem">
+            <div class="col s2">
+                <label for="members">Membro</label>*
+                <select ng-model="Pizza.pizzaRate.member"
+                        ng-options="m.id as m.name for m in Pizza.members"
+                        name="members"
+                        id="members"
+                        class="browser-default"
+                        required>
+                </select>
+            </div>
+            <div class="col s2">
+                <label for="pizzas">Pizza</label>*
+                <select ng-model="Pizza.pizzaRate.pizza"
+                        name="pizzas"
+                        id="pizzas"
+                        ng-options="p.id as p.name for p in Pizza.pizzas"
+                        class="browser-default"
+                        required>
+                </select>
+            </div>
+            <div class="input-field col s2">
+                <label>Nota*</label>
+                <input type="number" ng-model="Pizza.pizzaRate.rate">
+            </div>
+            <div class="input-field col s2">
+                <button title="adicionar avaliação" class="btn btn-floating" ng-click="Pizza.addPizzaRate()">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col s8">
+            <div class="card">
+                <div class="card-title"><strong>Avaliações</strong></div>
+                <div class="card-content">
+                    <table class="table striped">
+                        <thead>
+                            <tr>
+                                <th>Membro</th>
+                                <th>Pizza</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Pizza.itens">
+                                <td ng-click="Pizza.showCompatibility(item)">{{ item._embedded.member.name}}</td>
+                                <td>{{ item._embedded.pizza.name}}</td>
+                                <td>{{ item.rate}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col s4">
+            <div class="card">
+                <div class="card-title"><strong>Compatibilidade</strong></div>
+                <div class="card-content">
+                    <table class="table striped">
+                        <thead>
+                            <tr>
+                                <th>Membro</th>
+                                <th>Pizza</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="c in Pizza.compatibilidade">
+                                <td><strong>{{ c._embedded.member.name}}</strong></td>
+                                <td>{{ c._embedded.pizza.name}}</td>
+                                <td>{{ c.rate}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
